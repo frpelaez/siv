@@ -15,25 +15,25 @@ import (
 )
 
 func main() {
-    fruits := siv.New(10)
+    fruits := siv.New[string](10)
 
-    h1 := fruits.Add("banana")
+    fruits.Add("banana")
     h2 := fruits.Add("apple")
-    h3 := fruits.Add("kiwi")
+    fruits.Add("kiwi")
 
     fruits.Remove(h2)
 
     val, ok := fruits.Get(h2)
     if !ok {
-        fmt.Println("Used an invalidated handle to acces an item")
+        fmt.Println("Used an invalidated handle to access an item")
     } else {
         fmt.Print(*val)
     }
 
-    h2 = fruits.Add(orange)
+    fruits.Add("orange")
 
-    fmt.Println("-- Conntents --")
-    fruits.ForEach(func(h Handle, v *string) bool {
+    fmt.Println("\n-- Contents --")
+    fruits.ForEach(func(h siv.Handle, v *string) bool {
         fmt.Printf("Index: %d (Generation: %d), Value: %s\n", h.Index, h.Generation, *v)
         return true
     })
@@ -42,11 +42,11 @@ func main() {
 
 ### Output
 
-```py
-# Used an invalidated handle to acces an item
-# -- COntents --
-# Index: 0 (Generation: 0), Value: "banana"
-# Index: 1 (Generation: 1), Value: "orange"
-# Index: 2 (Generation: 0), Value: "apple"
-# Index: 3 (Generation: 0), Value: "kiwi"
+```
+Used an invalidated handle to access an item
+
+-- Contents --
+Index: 0 (Generation: 0), Value: banana
+Index: 1 (Generation: 1), Value: orange
+Index: 2 (Generation: 0), Value: kiwi
 ```
