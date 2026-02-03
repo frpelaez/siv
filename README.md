@@ -30,10 +30,23 @@ func main() {
         fmt.Print(*val)
     }
 
+    h2 = fruits.Add(orange)
+
     fmt.Println("-- Conntents --")
     fruits.ForEach(func(h Handle, v *string) bool {
-        fmt.Printf("Index: %d (Generation: %d), Value: %s", h.Index, h.Generation, *v)
+        fmt.Printf("Index: %d (Generation: %d), Value: %s\n", h.Index, h.Generation, *v)
         return true
     })
 }
+```
+
+### Output
+
+```py
+# Used an invalidated handle to acces an item
+# -- COntents --
+# Index: 0 (Generation: 0), Value: "banana"
+# Index: 1 (Generation: 1), Value: "orange"
+# Index: 2 (Generation: 0), Value: "apple"
+# Index: 3 (Generation: 0), Value: "kiwi"
 ```
